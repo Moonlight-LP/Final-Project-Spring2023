@@ -1,7 +1,1 @@
-{
-    "1": {
-        "__pydantic_initialised__": true,
-        "answer": "fox",
-        "points": 100
-    }
-}
+{}
