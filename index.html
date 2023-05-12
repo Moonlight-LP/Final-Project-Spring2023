@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Question App</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="my-4">Question App</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Create Answer</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="create-answer-form">
+                            <div class="form-group">
+                                <label for="answer">guess whats my favorite animal? lives in forest is very smart, orange white color:</label>
+                                <input type="text" class="form-control" id="answer" />
+                            <button type="submit" style="background-color:pink; border-color:deeppink; color:deeppink" class="btn btn-primary">1. Submit</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="answer">what animal is this: miau? :</label>
+                                <textarea class="form-control" id="answer" rows="1"></textarea>
+                            <button type="submit" style="background-color:pink; border-color:deeppink; color:deeppink" class="btn btn-primary">2. Submit</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="answer">what animal is barking?:</label>
+                                <textarea class="form-control" id="answer" rows="1"></textarea>
+                            <button type="submit" style="background-color:pink; border-color:deeppink; color:deeppink" class="btn btn-primary">3. Submit</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="answer">guess whats my favorite color?:</label>
+                                <textarea class="form-control" id="answer" rows="1"></textarea>
+                            <button type="submit" style="background-color:pink; border-color:deeppink; color:deeppink" class="btn btn-primary">4. Submit</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="answer">do you like this app?:</label>
+                                <textarea class="form-control" id="answer" rows="1"></textarea>
+                                <button type="submit" style="background-color:pink; border-color:deeppink; color:deeppink" class="btn btn-primary">5. Submit</button>
+                            </div>
+                            <button type="solution" style="background-color:pink; border-color:deeppink; color:deeppink" class="btn btn-primary">Solution</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Answers</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group" id="all_answers">                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
