@@ -26,7 +26,7 @@ async function loadAll_Answers() {
 
 // Function to update an appointment
 async function completeAnswer(answerId, answer, points) {
-  const ans = {
+  const answer = {
     answer: answer,
     points: points
   };
@@ -34,7 +34,7 @@ async function completeAnswer(answerId, answer, points) {
   const response = await fetch(`${apiUrl}/answers/${answerId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(ans),
+    body: JSON.stringify(answer),
   });
 
   // Parse the response body as JSON
@@ -47,7 +47,7 @@ async function completeAnswer(answerId, answer, points) {
 }
 
 // Function to delete all answers
-async function deleteAnswer() {
+async function deleteAnswers() {
   // Make the API request to delete the appointment
   const response = await fetch(`${apiUrl}/answers/{}`, {
     method: "DELETE",
@@ -129,19 +129,19 @@ function createAnswerElement(answer, points, id) {
   answerPoints.className = 'text-muted ml-2';
   answerPoints.innerText = points;
 
-  // Create the delete button element
-  let deleteButton = document.createElement('button');
-  deleteButton.className = 'btn btn-sm btn-danger';
-  deleteButton.innerText = 'Delete';
-  deleteButton.addEventListener('click', function () {
-    deleteAnswer(id);
-  });
+  // // Create the delete button element
+  // let deleteButton = document.createElement('button');
+  // deleteButton.className = 'btn btn-sm btn-danger';
+  // deleteButton.innerText = 'Delete';
+  // deleteButton.addEventListener('click', function () {
+  //   deleteAnswer(id);
+  // });
 
 
   // Add the appointment title to the list item
   listItem.appendChild(answerAnswer);
   listItem.appendChild(answerPoints);
-  listItem.appendChild(deleteButton);
+  // listItem.appendChild(deleteButton);
 
 
   // Return the list item element
