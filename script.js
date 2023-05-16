@@ -26,7 +26,7 @@ async function loadAll_Answers() {
 
 // Function to update an appointment
 async function completeAnswer(answerId, answer, points) {
-  const answer = {
+  const ans = {
     answer: answer,
     points: points
   };
@@ -34,7 +34,7 @@ async function completeAnswer(answerId, answer, points) {
   const response = await fetch(`${apiUrl}/answers/${answerId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(answer),
+    body: JSON.stringify(ans),
   });
 
   // Parse the response body as JSON
@@ -66,30 +66,52 @@ async function deleteAnswers() {
 loadAll_Answers();
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  const createAnswerForm = document.querySelector('#create-answer-form');
+  const answerBtn1 = document.querySelector('#answer1');
+  const answerBtn2 = document.querySelector('#answer2');
+  const answerBtn3 = document.querySelector('#answer3');
+  const answerBtn4 = document.querySelector('#answer4');
+  const answerBtn5 = document.querySelector('#answer5');
+  const solutionBtn = document.querySelector('#solution');
   // Get references to the HTML elements we need
   // const answerForm = document.getElementById("answer-form");
-  const answerAnswerInput = document.getElementById("answer");
-  const answerPointsInput = document.getElementById("points");
+  // const answerAnswerInput = document.getElementById("answer");
+  // const answerPointsInput = document.getElementById("points");
 
-  if (createAnswerForm) {
-    createAnswerForm.addEventListener("submit", createAnswer);
+
+  if (answerBtn1) {
+    answerBtn1.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer1"))});
   }
 
-  if (createAnswerForm) {
-    createAnswerForm.addEventListener("submit", createAnswer);
+  if (answerBtn2) {
+    answerBtn2.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer2"))});
+  }
+
+  if (answerBtn3) {
+    answerBtn3.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer3"))});
+  }
+
+  if (answerBtn4) {
+    answerBtn4.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer4"))});
+  }
+
+  if (answerBtn5) {
+    answerBtn5.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer5"))});
+  }
+
+  if (solutionBtn) {
+    solutionBtn.addEventListener("click", solutionBtn);
   }
 
   // Function to create a new answer
-  async function createAnswer(event) {
+  async function createAnswer(ans) {
     // Prevent the default form submission behavior
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
+    // event.preventDefault();
+    // const form = event.target;
+    // const formData = new FormData(form);
     // Build the request body
     const answer = {
-      answer: answerAnswerInput.value,
-      points: answerPointsInput.value,
+      answer: ans.value,
+      points: ""
   
     };
 
@@ -107,8 +129,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
       .then(data => {
         loadAll_Answers();
         // Clear the form inputs
-        answerAnswerInput.value = "";
-        answerPointsInput.value = ""
+        ans.value = "";
+        // answerPointsInput.value = ""
         
       })
       .catch(error => console.error('Error:', error));

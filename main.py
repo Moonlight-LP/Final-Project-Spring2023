@@ -92,7 +92,7 @@ async def read_all_answers():
     if all_answers == {} or all_answers == None:
         return {"message": "no answers"}
     
-    return all_answers
+    return all_answers # Questions adding
 
 
 #create answer
