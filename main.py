@@ -123,7 +123,6 @@ async def create_answer(answer: Answer):
         
     all_answers[answer_id] = answer
     
-    
     with open("all_answers.txt", "w+") as all_answers_list_file:
         all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
 
@@ -133,20 +132,18 @@ async def create_answer(answer: Answer):
 #Solution, start Test new
 
 @app.delete("/answers/{}")
-async def solution():
+async def solution(): 
+    # get the sum of all answer points
+    sum_points = 0
+    for point in all_answers.values():
+        sum_points += point.points
+    
     if all_answers:
-        # I try to get the sum of all points from Dictionary Class Items (Points) #
-        
-        # if sum(all_answers.points) == 500: #
-            
-            
-            
-        #     all_answers.clear()
-            
-        #     with open("all_answers.txt", "w") as all_answers_list_file:
-        #         all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
-            
-        #     return {"message":"You won!"}
+        if sum_points >= 500:
+            all_answers.clear()
+            with open("all_answers.txt", "w") as all_answers_list_file:
+                all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+            return {"message":"You won!"}
         
         all_answers.clear()
             
