@@ -104,9 +104,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   // Function to create a new answer
   async function createAnswer(ans) {
+    // Prevent the default form submission behavior
+    // event.preventDefault();
+    // const form = event.target;
+    // const formData = new FormData(form);
+    // Build the request body
     const answer = {
-      "answer": ans.value,
-      "points": 0
+      answer: ans.value,
+      points: ""
+  
     };
 
     // Make the API request to create the new answer

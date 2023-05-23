@@ -1,1 +1,32 @@
-{}
+{
+    "1": {
+        "__pydantic_initialised__": true,
+        "answer": "test",
+        "points": 0
+    },
+    "2": {
+        "__pydantic_initialised__": true,
+        "answer": "test",
+        "points": 0
+    },
+    "3": {
+        "__pydantic_initialised__": true,
+        "answer": "fox",
+        "points": 0
+    },
+    "4": {
+        "__pydantic_initialised__": true,
+        "answer": "cat",
+        "points": 0
+    },
+    "5": {
+        "__pydantic_initialised__": true,
+        "answer": "yes",
+        "points": 100
+    },
+    "6": {
+        "__pydantic_initialised__": true,
+        "answer": "yes",
+        "points": 0
+    }
+}
