@@ -47,12 +47,43 @@ class Answer:
     answer_id: str
     points: int = 0
     
-    
     def __init__self(self, points):
         self.points = points
-
-
+        
 all_answers: Dict[str, Answer] = {}
+        
+@dataclass        
+class Question:
+    question: str
+    question_id: str
+    
+    # def __init__self(self, question, question_id):
+    #     self.question = question
+    #     self.question_id = question_id
+
+
+question1 = Question
+question1.question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+question1.question_id = 1
+
+question2 = Question
+question2.question = "what animal is this: miau?:"
+question2.question_id = 2
+
+question3 = Question
+question3.question = "what animal is barking?:"
+question3.question_id = 3
+
+question4 = Question
+question4.question = "guess whats my favorite color?:"
+question4.question_id = 4
+
+question5 = Question
+question5.question = "do you like this app?:"
+question5.question_id = 5
+
+
+all_questions = [question1, question2, question3, question4, question5]
 
 
 #load save file on startup
@@ -64,6 +95,12 @@ def load_all_answers():
         if data:
             all_answers.update(json.loads(data))
             
+# def load_all_questions():
+#     with open("all_questions.txt", "a+") as all_questions_list_file:
+#         data = all_questions_list_file.read()
+#         if data:
+#             all_questions.update(json.loads(data))
+            
 
 #Greeting Site
 
@@ -71,15 +108,16 @@ def load_all_answers():
 async def greetings():
     return {"message": "Hey, this is my Final Project Spring2023, hope it works :)"}
 
-@app.get("/Questions")
-async def questions():
-    return {"message": "Hey, this are the questions, please answer and submit one by one :)", 
-            "1.": "guess whats my favorite animal? lives in forest is very smart, orange white color:", 
-            "2.": "what animal is this: miau?:", 
-            "3.": "what animal is barking?:", 
-            "4.": "guess whats my favorite color?:", 
-            "5.": "do you like this app?:"
-            }
+# @app.get("/Questions")
+# async def questions():
+
+#     return {"message": "Hey, this are the questions, please answer and submit one by one :)", 
+#             "1.": "guess whats my favorite animal? lives in forest is very smart, orange white color:", 
+#             "2.": "what animal is this: miau?:", 
+#             "3.": "what animal is barking?:", 
+#             "4.": "guess whats my favorite color?:", 
+#             "5.": "do you like this app?:"
+#             }
 
 
 #list all given answers
@@ -100,8 +138,25 @@ async def read_all_answers():
 #create answer
 
 @app.post("/answers")
-async def create_answer(answer: Answer):
-    #answer_id = str(len(all_answers) +1)
+async def create_answer(question, answer: Answer):
+    
+    # assign answer_id to question_id
+    print(question1)
+    if question1.question_id == "1":
+        answer.answer_id = "1"
+        
+    if question2.question_id == "2":
+        answer.answer_id = "2"
+        
+    if question3.question_id == "3":
+        answer.answer_id = "3"
+        
+    if question4.question_id == "4":
+        answer.answer_id = "4"
+        
+    if question5.question_id == "5":
+        answer.answer_id = "5"
+        
     
     if answer.answer_id == "1":
         if answer.answer == "fox" or answer.answer == "Fox":
@@ -138,7 +193,7 @@ async def solution():
     # get the sum of all answer points
     sum_points = 0
     for answer in all_answers.values():
-        sum_points += answer.points
+        sum_points = sum_points + answer.points
     
     if all_answers:
         if sum_points >= 500:
