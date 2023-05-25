@@ -44,13 +44,15 @@ app.add_middleware(
 @dataclass
 class Answer:
     answer: str
+    answer_id: str
     points: int = 0
+    
     
     def __init__self(self, points):
         self.points = points
 
 
-all_answers: Dict[int, Answer] = {}
+all_answers: Dict[str, Answer] = {}
 
 
 #load save file on startup
@@ -99,34 +101,34 @@ async def read_all_answers():
 
 @app.post("/answers")
 async def create_answer(answer: Answer):
-    answer_id = str(len(all_answers) +1)
+    #answer_id = str(len(all_answers) +1)
     
-    if answer_id == "1":
+    if answer.answer_id == "1":
         if answer.answer == "fox" or answer.answer == "Fox":
             answer.points = +100
             
-    if answer_id == "2":
+    if answer.answer_id == "2":
         if answer.answer == "cat" or answer.answer == "Cat":
             answer.points = +100
             
-    if answer_id == "3":
+    if answer.answer_id == "3":
         if answer.answer == "dog" or answer.answer == "Dog":
             answer.points = +100
             
-    if answer_id == "4":
+    if answer.answer_id == "4":
         if answer.answer == "pink" or answer.answer == "Pink":
             answer.points = +100
             
-    if answer_id == "5":
+    if answer.answer_id == "5":
         if answer.answer == "yes" or answer.answer == "Yes":
             answer.points = +100
         
-    all_answers[answer_id] = answer
+    all_answers[answer.answer_id] = answer
     
     with open("all_answers.txt", "w+") as all_answers_list_file:
         all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
 
-    return {"answer_id": answer_id }, answer
+    return {"answer_id": answer.answer_id }, answer
 
 
 #Solution, start Test new
@@ -135,8 +137,8 @@ async def create_answer(answer: Answer):
 async def solution(): 
     # get the sum of all answer points
     sum_points = 0
-    for point in all_answers.values():
-        sum_points += point.points
+    for answer in all_answers.values():
+        sum_points += answer.points
     
     if all_answers:
         if sum_points >= 500:

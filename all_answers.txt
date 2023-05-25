@@ -1,32 +1,20 @@
 {
     "1": {
         "__pydantic_initialised__": true,
-        "answer": "test",
-        "points": 0
+        "answer": "fox",
+        "answer_id": "1",
+        "points": 100
     },
     "2": {
         "__pydantic_initialised__": true,
-        "answer": "test",
-        "points": 0
+        "answer": "cat",
+        "answer_id": "2",
+        "points": 100
     },
     "3": {
         "__pydantic_initialised__": true,
-        "answer": "fox",
-        "points": 0
-    },
-    "4": {
-        "__pydantic_initialised__": true,
-        "answer": "cat",
-        "points": 0
-    },
-    "5": {
-        "__pydantic_initialised__": true,
-        "answer": "yes",
+        "answer": "dog",
+        "answer_id": "3",
         "points": 100
-    },
-    "6": {
-        "__pydantic_initialised__": true,
-        "answer": "yes",
-        "points": 0
     }
 }

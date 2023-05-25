@@ -79,34 +79,35 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 
   if (answerBtn1) {
-    answerBtn1.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer1"))});
+    answerBtn1.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer1"),1)});
   }
 
   if (answerBtn2) {
-    answerBtn2.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer2"))});
+    answerBtn2.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer2"),2)});
   }
 
   if (answerBtn3) {
-    answerBtn3.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer3"))});
+    answerBtn3.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer3"),3)});
   }
 
   if (answerBtn4) {
-    answerBtn4.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer4"))});
+    answerBtn4.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer4"),4)});
   }
 
   if (answerBtn5) {
-    answerBtn5.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer5"))});
+    answerBtn5.addEventListener("click", function(){createAnswer(document.getElementById("txtanswer5"),5)});
   }
 
   if (solutionBtn) {
-    solutionBtn.addEventListener("click", solutionBtn);
+    solutionBtn.addEventListener("click", function(){deleteAnswers()});
   }
 
   // Function to create a new answer
-  async function createAnswer(ans) {
+  async function createAnswer(ans, id) {
     const answer = {
       "answer": ans.value,
-      "points": 0
+      "points": 0,
+      "answer_id": id
     };
 
     // Make the API request to create the new answer
