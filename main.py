@@ -86,6 +86,28 @@ question5.answer = "yes"
 questions = [question1, question2, question3, question4, question5]
 
 right_answers: Dict[str, Answer] = {}
+right_answers = {
+    "1": {
+        "question": "guess whats my favorite animal? lives in forest is very smart, orange white color:",
+        "answer": "fox"
+    },
+    "2": {
+        "question": "what animal is this: miau?:",
+        "answer": "cat"
+    },
+    "3": {
+        "question": "what animal is barking?:",
+        "answer": "dog"
+    },
+    "4": {
+        "question": "guess whats my favorite color?:",
+        "answer": "pink"
+    },
+    "5": {
+        "question": "do you like this app?:",
+        "answer": "yes"
+    }
+}
 
 
 #load save file on startup
@@ -104,7 +126,7 @@ def load_all_questions():
             all_questions.update(json.loads(data))
             
 def load_right_answers():
-    with open("right_answers.txt", "r") as right_answers_list_file:
+    with open("right_answers.txt", "a+") as right_answers_list_file:
         data = right_answers_list_file.read()
         if data:
             right_answers.update(json.loads(data))
@@ -145,20 +167,20 @@ async def read_all_answers():
 
 
 #create answer
-question: str = "Hello"
-if len(all_answers) == 0:
-    question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
-if len(all_answers) == 1:
-    question = "guess whats my favorite animal? live color:"
-if len(all_answers) == 2:
-    question = "guess whats my favorite animal? lives in foree color:"
-if len(all_answers) == 3:
-    question = "guess whats my favorite anolor:"
-if len(all_answers) == 4:
-    question = "guess whats my favor:"
+# question: str = "Hello"
+# if len(all_answers) == 0:
+#     question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+# if len(all_answers) == 1:
+#     question = "guess whats my favorite animal? live color:"
+# if len(all_answers) == 2:
+#     question = "guess whats my favorite animal? lives in foree color:"
+# if len(all_answers) == 3:
+#     question = "guess whats my favorite anolor:"
+# if len(all_answers) == 4:
+#     question = "guess whats my favor:"
     
 @app.post("/answers")
-async def create_answer(answer: Answer, question: Question = question):
+async def create_answer(answer: Answer):
     #print question
     
     if len(all_answers) == 0:
@@ -184,27 +206,28 @@ async def create_answer(answer: Answer, question: Question = question):
     if len(all_answers) == 5:
         return {"message": "no more questions"}
     
+
     
     answer_place = len(all_answers) + 1
     all_answers[answer_place] = answer
 
     with open("all_answers.txt", "w+") as all_answers_list_file:
         all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
-
-    return answer
+    
+    return answer, all_answers, right_answers
 
 
 #Solution, start Test new
 
 @app.delete("/answers/{}")
 async def solution():
-    # get the sum of all answer points
     if all_answers:
         if len(all_answers) >= 1 and len(all_answers) < 5:
             all_answers.clear()
             with open("all_answers.txt", "w") as all_answers_list_file:
                 all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
             return {"message": "List was not finished. Try again"}
+        
         if all_answers == right_answers:
             all_answers.clear()
             with open("all_answers.txt", "w") as all_answers_list_file:
