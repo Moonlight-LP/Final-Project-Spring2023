@@ -138,47 +138,47 @@ async def read_all_answers():
 #create answer
 
 @app.post("/answers")
-async def create_answer(question, answer: Answer):
-    
-    # assign answer_id to question_id
-    print(question1)
-    if question1.question_id == "1":
-        answer.answer_id = "1"
-        
-    if question2.question_id == "2":
-        answer.answer_id = "2"
-        
-    if question3.question_id == "3":
-        answer.answer_id = "3"
-        
-    if question4.question_id == "4":
-        answer.answer_id = "4"
-        
-    if question5.question_id == "5":
-        answer.answer_id = "5"
-        
-    
-    if answer.answer_id == "1":
-        if answer.answer == "fox" or answer.answer == "Fox":
-            answer.points = +100
+async def create_answer(question:Question, answer: Answer):
+    for question in all_questions:
+        print(question.question)
+        # assign answer_id to question_id
+        if question.question_id == "1":
+            answer.answer_id = "1"
             
-    if answer.answer_id == "2":
-        if answer.answer == "cat" or answer.answer == "Cat":
-            answer.points = +100
+        if question.question_id == "2":
+            answer.answer_id = "2"
             
-    if answer.answer_id == "3":
-        if answer.answer == "dog" or answer.answer == "Dog":
-            answer.points = +100
+        if question.question_id == "3":
+            answer.answer_id = "3"
             
-    if answer.answer_id == "4":
-        if answer.answer == "pink" or answer.answer == "Pink":
-            answer.points = +100
+        if question.question_id == "4":
+            answer.answer_id = "4"
             
-    if answer.answer_id == "5":
-        if answer.answer == "yes" or answer.answer == "Yes":
-            answer.points = +100
+        if question.question_id == "5":
+            answer.answer_id = "5"
+            
         
-    all_answers[answer.answer_id] = answer
+        if answer.answer_id == "1":
+            if answer.answer == "fox" or answer.answer == "Fox":
+                answer.points = +100
+                
+        if answer.answer_id == "2":
+            if answer.answer == "cat" or answer.answer == "Cat":
+                answer.points = +100
+                
+        if answer.answer_id == "3":
+            if answer.answer == "dog" or answer.answer == "Dog":
+                answer.points = +100
+                
+        if answer.answer_id == "4":
+            if answer.answer == "pink" or answer.answer == "Pink":
+                answer.points = +100
+                
+        if answer.answer_id == "5":
+            if answer.answer == "yes" or answer.answer == "Yes":
+                answer.points = +100
+            
+        all_answers[answer.answer_id] = answer
     
     with open("all_answers.txt", "w+") as all_answers_list_file:
         all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))

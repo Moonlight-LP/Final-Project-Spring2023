@@ -1,8 +1,1 @@
-{
-    "5": {
-        "__pydantic_initialised__": true,
-        "answer": "cat",
-        "answer_id": "5",
-        "points": 0
-    }
-}
+{}
