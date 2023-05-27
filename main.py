@@ -43,7 +43,7 @@ app.add_middleware(
 
 @dataclass
 class Answer:
-    question: Optional[str]
+    question: str
     answer: str
     # answer_id: str
         
@@ -60,27 +60,33 @@ all_questions: Dict[str, Question] = {}
 
 question1 = Question
 question1.question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+question1.answer = "fox"
 # question1.question_id = "1"
 
 question2 = Question
 question2.question = "what animal is this: miau?:"
+question2.answer = "cat"
 # question2.question_id = "2"
 
 question3 = Question
 question3.question = "what animal is barking?:"
+question3.answer = "dog"
 # question3.question_id = "3"
 
 question4 = Question
 question4.question = "guess whats my favorite color?:"
+question4.answer = "pink"
 # question4.question_id = "4"
 
 question5 = Question
 question5.question = "do you like this app?:"
+question5.answer = "yes"
 # question5.question_id = "5"
 
-question_list = [question1, question2, question3, question4, question5]
+questions = [question1, question2, question3, question4, question5]
 
 right_answers: Dict[str, Answer] = {}
+
 
 #load save file on startup
 
@@ -92,7 +98,7 @@ def load_all_answers():
             all_answers.update(json.loads(data))
             
 def load_all_questions():
-    with open("all_questions.txt", "a+") as all_questions_list_file:
+    with open("all_questions.txt", "r") as all_questions_list_file:
         data = all_questions_list_file.read()
         if data:
             all_questions.update(json.loads(data))
@@ -120,7 +126,7 @@ async def read_all_questions():
         if data:
             all_questions.update(json.loads(data))
     
-    return all_questions.values().question
+    return all_questions
 
 
 #list all given answers
@@ -139,25 +145,41 @@ async def read_all_answers():
 
 
 #create answer
-
+question: str = "Hello"
+if len(all_answers) == 0:
+    question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+if len(all_answers) == 1:
+    question = "guess whats my favorite animal? live color:"
+if len(all_answers) == 2:
+    question = "guess whats my favorite animal? lives in foree color:"
+if len(all_answers) == 3:
+    question = "guess whats my favorite anolor:"
+if len(all_answers) == 4:
+    question = "guess whats my favor:"
+    
 @app.post("/answers")
-
-async def create_answer(answer: Answer):
+async def create_answer(answer: Answer, question: Question = question):
     #print question
+    
     if len(all_answers) == 0:
-        answer.question = question_list[0]
+        answer.question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+        #question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
         # answer.answer_id = question.question_id
     if len(all_answers) == 1:
-        answer.question = question_list[1]
+        answer.question = "what animal is this: miau?:"
+        #question = "what animal is this: miau?:"
         # answer.answer_id = question.question_id
     if len(all_answers) == 2:
-        answer.question = question_list[2]
+        answer.question = "what animal is barking?:"
+        #question = "what animal is barking?:"
         # answer.answer_id = question.question_id
     if len(all_answers) == 3:
-        answer.question = question_list[3]
+        answer.question = "guess whats my favorite color?:"
+        #question = "guess whats my favorite color?:"
         # answer.answer_id = question.question_id
     if len(all_answers) == 4:
-        answer.question = question_list[4]
+        answer.question = "do you like this app?:"
+        #question = "do you like this app?:"
         # answer.answer_id = question.question_id
     if len(all_answers) == 5:
         return {"message": "no more questions"}
