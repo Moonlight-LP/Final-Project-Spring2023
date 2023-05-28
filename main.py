@@ -49,11 +49,9 @@ class Answer:
         
 all_answers: Dict[str, Answer] = {}
         
-        
 @dataclass        
 class Question:
     question: str
-    # question_id: str
     
 @dataclass
 class FirstQuestion:
