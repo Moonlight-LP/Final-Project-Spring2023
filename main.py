@@ -39,7 +39,7 @@ app.add_middleware(
     allow_headers=["*"])
 
 
-#class User Answer Data to store
+#classes
 
 @dataclass
 class Answer:
@@ -57,6 +57,8 @@ class Question:
     
 all_questions: Dict[str, Question] = {}
 
+
+# assign questions
 
 question1 = Question
 question1.question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
@@ -85,6 +87,9 @@ question5.answer = "yes"
 
 questions = [question1, question2, question3, question4, question5]
 
+
+#assign right answers
+
 right_answers: Dict[str, Answer] = {}
 right_answers["1"] = {
     "question": "guess whats my favorite animal? lives in forest is very smart, orange white color:",
@@ -108,7 +113,7 @@ right_answers["5"] = {
 }
 
 
-#load save file on startup
+#load save files on startup
 
 @app.on_event("startup")
 def load_all_answers():
@@ -128,7 +133,7 @@ def load_right_answers():
         data = right_answers_list_file.read()
         if data:
             right_answers.update(json.loads(data))
-            
+
 
 #Greeting Site
 
@@ -176,7 +181,10 @@ async def read_all_answers():
 #     question = "guess whats my favorite anolor:"
 # if len(all_answers) == 4:
 #     question = "guess whats my favor:"
-    
+
+
+# posting answers
+
 @app.post("/answers")
 async def create_answer(answer: Answer):
     #print question
@@ -204,7 +212,6 @@ async def create_answer(answer: Answer):
     if len(all_answers) == 5:
         return {"message": "no more questions"}
     
-    
     answer_key = str(len(all_answers) + 1)
     all_answers[answer_key] = answer
 
@@ -226,8 +233,6 @@ async def solution():
         data = right_answers_list_file.read()
         if data:
             right_answers.update(json.loads(data))
-    # all_answers_values = list(all_answers.values())
-    # right_answers_values = list(right_answers.values())
     
     if all_answers:
         if len(all_answers) >= 1 and len(all_answers) < 5:
