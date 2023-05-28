@@ -55,42 +55,36 @@ class Question:
     question: str
     # question_id: str
     
+@dataclass
+class FirstQuestion:
+    first_question: str = "guess whats my favorite animal, lives in forest is very smart, orange white color:"
+    
+
+# assign questions   
+
 all_questions: Dict[str, Question] = {}
 
-
-# assign questions
-
-question1 = Question
-question1.question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
-question1.answer = "fox"
-# question1.question_id = "1"
-
-question2 = Question
-question2.question = "what animal is this: miau?:"
-question2.answer = "cat"
-# question2.question_id = "2"
-
-question3 = Question
-question3.question = "what animal is barking?:"
-question3.answer = "dog"
-# question3.question_id = "3"
-
-question4 = Question
-question4.question = "guess whats my favorite color?:"
-question4.answer = "pink"
-# question4.question_id = "4"
-
-question5 = Question
-question5.question = "do you like this app?:"
-question5.answer = "yes"
-# question5.question_id = "5"
-
-questions = [question1, question2, question3, question4, question5]
+all_questions[1] = {
+"question" : "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+}
+all_questions[2] = {
+"question" : "what animal is this: miau?:"
+}
+all_questions[3] = {
+"question" : "what animal is barking?:"
+}
+all_questions[4] = {
+"question" : "guess whats my favorite color?:"
+}
+all_questions[5] = {
+"question" : "do you like this app?:"
+}
 
 
 #assign right answers
 
 right_answers: Dict[str, Answer] = {}
+
 right_answers["1"] = {
     "question": "guess whats my favorite animal? lives in forest is very smart, orange white color:",
     "answer": "fox"
@@ -169,56 +163,64 @@ async def read_all_answers():
     return all_answers
 
 
-#create answer
-# question: str = "Hello"
-# if len(all_answers) == 0:
-#     question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
-# if len(all_answers) == 1:
-#     question = "guess whats my favorite animal? live color:"
-# if len(all_answers) == 2:
-#     question = "guess whats my favorite animal? lives in foree color:"
-# if len(all_answers) == 3:
-#     question = "guess whats my favorite anolor:"
-# if len(all_answers) == 4:
-#     question = "guess whats my favor:"
-
-
 # posting answers
 
 @app.post("/answers")
-async def create_answer(answer: Answer):
-    #print question
+async def create_answer(answer: Answer, first_question: FirstQuestion):
+    
+    with open("all_answers.txt", "r") as all_answers_list_file:
+        data = all_answers_list_file.read()
+        if data:
+            all_answers.update(json.loads(data))
+    with open("all_questions.txt", "r") as all_questions_list_file:
+        data = all_questions_list_file.read()
+        if data:
+            all_questions.update(json.loads(data))
     
     if len(all_answers) == 0:
         answer.question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
-        #question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+        answer_key = str(len(all_answers) + 1)
+        all_answers[answer_key] = answer
+        with open("all_answers.txt", "w+") as all_answers_list_file:
+            all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+        return answer, "next question is:", all_questions[2] #"guess whats my favorite animal? lives in forest is very smart, orange white color:"
         # answer.answer_id = question.question_id
     if len(all_answers) == 1:
         answer.question = "what animal is this: miau?:"
-        #question = "what animal is this: miau?:"
+        answer_key = str(len(all_answers) + 1)
+        all_answers[answer_key] = answer
+        with open("all_answers.txt", "w+") as all_answers_list_file:
+            all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+        return answer,"next question is:", all_questions[3] # "what animal is this: miau?:"
         # answer.answer_id = question.question_id
     if len(all_answers) == 2:
         answer.question = "what animal is barking?:"
-        #question = "what animal is barking?:"
+        answer_key = str(len(all_answers) + 1)
+        all_answers[answer_key] = answer
+        with open("all_answers.txt", "w+") as all_answers_list_file:
+            all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+        return answer,"next question is:", all_questions[4] # "what animal is barking?:"    
         # answer.answer_id = question.question_id
     if len(all_answers) == 3:
         answer.question = "guess whats my favorite color?:"
-        #question = "guess whats my favorite color?:"
+        answer_key = str(len(all_answers) + 1)
+        all_answers[answer_key] = answer
+        with open("all_answers.txt", "w+") as all_answers_list_file:
+            all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+        return answer,"next question is:", all_questions[5] #"guess whats my favorite color?:"
         # answer.answer_id = question.question_id
     if len(all_answers) == 4:
         answer.question = "do you like this app?:"
-        #question = "do you like this app?:"
+        answer_key = str(len(all_answers) + 1)
+        all_answers[answer_key] = answer
+        with open("all_answers.txt", "w+") as all_answers_list_file:
+            all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+        return answer, "Quiz is done, please click solution in delete request" #"do you like this app?:"
         # answer.answer_id = question.question_id
     if len(all_answers) == 5:
         return {"message": "no more questions"}
     
-    answer_key = str(len(all_answers) + 1)
-    all_answers[answer_key] = answer
-
-    with open("all_answers.txt", "w+") as all_answers_list_file:
-        all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
-    
-    return answer, all_answers, right_answers
+    return {"message": "something went wrong"}
 
 
 #Solution, start Test new
