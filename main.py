@@ -86,27 +86,25 @@ question5.answer = "yes"
 questions = [question1, question2, question3, question4, question5]
 
 right_answers: Dict[str, Answer] = {}
-right_answers = {
-    "1": {
-        "question": "guess whats my favorite animal? lives in forest is very smart, orange white color:",
-        "answer": "fox"
-    },
-    "2": {
-        "question": "what animal is this: miau?:",
-        "answer": "cat"
-    },
-    "3": {
-        "question": "what animal is barking?:",
-        "answer": "dog"
-    },
-    "4": {
-        "question": "guess whats my favorite color?:",
-        "answer": "pink"
-    },
-    "5": {
-        "question": "do you like this app?:",
-        "answer": "yes"
-    }
+right_answers["1"] = {
+    "question": "guess whats my favorite animal? lives in forest is very smart, orange white color:",
+    "answer": "fox"
+}
+right_answers["2"] = {
+    "question": "what animal is this: miau?:",
+    "answer": "cat"
+}
+right_answers["3"] = {
+    "question": "what animal is barking?:",
+    "answer": "dog"
+}
+right_answers["4"] = {
+    "question": "guess whats my favorite color?:",
+    "answer": "pink"
+}
+right_answers["5"] = {
+    "question": "do you like this app?:",
+    "answer": "yes"
 }
 
 
@@ -206,10 +204,9 @@ async def create_answer(answer: Answer):
     if len(all_answers) == 5:
         return {"message": "no more questions"}
     
-
     
-    answer_place = len(all_answers) + 1
-    all_answers[answer_place] = answer
+    answer_key = str(len(all_answers) + 1)
+    all_answers[answer_key] = answer
 
     with open("all_answers.txt", "w+") as all_answers_list_file:
         all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
@@ -221,6 +218,17 @@ async def create_answer(answer: Answer):
 
 @app.delete("/answers/{}")
 async def solution():
+    with open("all_answers.txt", "r") as all_answers_list_file:
+        data = all_answers_list_file.read()
+        if data:
+            all_answers.update(json.loads(data))
+    with open("right_answers.txt", "r") as right_answers_list_file:
+        data = right_answers_list_file.read()
+        if data:
+            right_answers.update(json.loads(data))
+    # all_answers_values = list(all_answers.values())
+    # right_answers_values = list(right_answers.values())
+    
     if all_answers:
         if len(all_answers) >= 1 and len(all_answers) < 5:
             all_answers.clear()
@@ -233,6 +241,7 @@ async def solution():
             with open("all_answers.txt", "w") as all_answers_list_file:
                 all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
             return {"message":"You won!"}
+        
         all_answers.clear()
         with open("all_answers.txt", "w") as all_answers_list_file:
             all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))  
