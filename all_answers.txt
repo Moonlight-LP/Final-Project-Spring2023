@@ -1,12 +1,1 @@
-{
-    "1": {
-        "__pydantic_initialised__": true,
-        "answer": "fox",
-        "question": "guess whats my favorite animal? lives in forest is very smart, orange white color:"
-    },
-    "2": {
-        "__pydantic_initialised__": true,
-        "answer": "cat",
-        "question": "what animal is this: miau?:"
-    }
-}
+{}

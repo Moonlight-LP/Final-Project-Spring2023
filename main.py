@@ -1,4 +1,4 @@
-# ❤ Final Project Spring 2023 ❤
+#❤ Final Project Spring 2023 ❤
 
 
 
@@ -146,7 +146,7 @@ def load_start():
 
 @app.get("/")
 async def greetings():
-    return {"message": "Hey, this is my Final Project Spring2023, hope it works :)"}
+    return {"message": "❤ Hey, this is my Final Project Spring2023, hope it works ❤"}
 
 
 #list all questions

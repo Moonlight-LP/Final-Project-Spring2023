@@ -1,4 +1,4 @@
- ❤ Hey, this is my final project (Backend-Spring2023), a simple Quiz ❤
+❤ Hey, this is my final project (Backend-Spring2023), a simple Quiz ❤
 
 Instructions:
 
@@ -27,4 +27,4 @@ Please note:
 - when you reload or close the browser, you are not able to see the last question, so please restart main.py python file manually, too
 - restarting main.py python file will save given answers for next time
 
- ❤ Thank you ❤
+❤ Thank you ❤
