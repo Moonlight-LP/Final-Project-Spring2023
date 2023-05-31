@@ -1,27 +1,27 @@
 {
     "1": {
         "__pydantic_initialised__": true,
-        "answer": "fox",
+        "answer": "Fox",
         "question": "Guess my favorite animal, it lives in the forest, is very smart and orange-white colored"
     },
     "2": {
         "__pydantic_initialised__": true,
-        "answer": "cat",
+        "answer": "Cat",
         "question": "What animal makes miau?"
     },
     "3": {
         "__pydantic_initialised__": true,
-        "answer": "dog",
+        "answer": "Dog",
         "question": "What animal is barking?"
     },
     "4": {
         "__pydantic_initialised__": true,
-        "answer": "pink",
+        "answer": "Pink",
         "question": "Guess my favorite color"
     },
     "5": {
         "__pydantic_initialised__": true,
-        "answer": "yes",
+        "answer": "Yes",
         "question": "Do you like this app?"
     }
 }

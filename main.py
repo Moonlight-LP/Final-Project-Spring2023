@@ -51,16 +51,15 @@ start["is_start"] = "no"
 class Answer:
     question: str
     answer: str
-    # answer_id: str
-        
+
 @dataclass        
 class Question:
     question: str
-    
+
 @dataclass
 class FirstQuestion:
-    first_question: str = "guess whats my favorite animal, lives in forest is very smart, orange white color:"
-    
+    first_question: str = "Guess my favorite animal, it lives in the forest, is very smart and orange-white colored"
+
 
 # assign answers Dict
 
@@ -72,10 +71,10 @@ all_answers: Dict[str, Answer] = {}
 all_questions: Dict[str, Question] = {}
 
 all_questions[1] = {
-"question" : "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+"question" : "Guess my favorite animal, it lives in the forest, is very smart and orange-white colored"
 }
 all_questions[2] = {
-"question" : "what animal is this: miau?:"
+"question" : "What animal makes miau?"
 }
 all_questions[3] = {
 "question" : "what animal is barking?:"
@@ -93,11 +92,11 @@ all_questions[5] = {
 right_answers: Dict[str, Answer] = {}
 
 right_answers["1"] = {
-    "question": "guess whats my favorite animal? lives in forest is very smart, orange white color:",
+    "question": "Guess my favorite animal, it lives in the forest, is very smart and orange-white colored",
     "answer": "fox"
 }
 right_answers["2"] = {
-    "question": "what animal is this: miau?:",
+    "question": "What animal makes miau?",
     "answer": "cat"
 }
 right_answers["3"] = {
@@ -114,6 +113,84 @@ right_answers["5"] = {
 }
 
 
+#assign right answers capitalized
+
+right_answers_caps: Dict[str, Answer] = {}
+
+right_answers_caps["1"] = {
+    "question": "Guess my favorite animal, it lives in the forest, is very smart and orange-white colored",
+    "answer": "Fox"
+}
+right_answers_caps["2"] = {
+    "question": "What animal makes miau?",
+    "answer": "Cat"
+}
+right_answers_caps["3"] = {
+    "question": "what animal is barking?:",
+    "answer": "Dog"
+}
+right_answers_caps["4"] = {
+    "question": "guess whats my favorite color?:",
+    "answer": "Pink"
+}
+right_answers_caps["5"] = {
+    "question": "do you like this app?:",
+    "answer": "Yes"
+}
+
+
+#assign right answers but doesnt like the app
+
+almost_right_answers: Dict[str, Answer] = {}
+
+almost_right_answers["1"] = {
+    "question": "Guess my favorite animal, it lives in the forest, is very smart and orange-white colored",
+    "answer": "fox"
+}
+almost_right_answers["2"] = {
+    "question": "What animal makes miau?",
+    "answer": "cat"
+}
+almost_right_answers["3"] = {
+    "question": "what animal is barking?:",
+    "answer": "dog"
+}
+right_answers["4"] = {
+    "question": "guess whats my favorite color?:",
+    "answer": "pink"
+}
+almost_right_answers["5"] = {
+    "question": "do you like this app?:",
+    "answer": "no"
+}
+
+
+#assign right answers but doesnt like the app capitalized
+
+almost_right_answers_caps: Dict[str, Answer] = {}
+
+almost_right_answers_caps["1"] = {
+    "question": "Guess my favorite animal, it lives in the forest, is very smart and orange-white colored",
+    "answer": "fox"
+}
+almost_right_answers_caps["2"] = {
+    "question": "What animal makes miau?",
+    "answer": "Cat"
+}
+almost_right_answers_caps["3"] = {
+    "question": "what animal is barking?:",
+    "answer": "Dog"
+}
+right_answers["4"] = {
+    "question": "guess whats my favorite color?:",
+    "answer": "Pink"
+}
+almost_right_answers_caps["5"] = {
+    "question": "do you like this app?:",
+    "answer": "No"
+}
+
+
 #load save files on startup
 
 @app.on_event("startup")
@@ -122,19 +199,37 @@ def load_all_answers():
         data = all_answers_list_file.read()
         if data:
             all_answers.update(json.loads(data))
-            
+
 def load_all_questions():
     with open("all_questions.txt", "r") as all_questions_list_file:
         data = all_questions_list_file.read()
         if data:
             all_questions.update(json.loads(data))
-            
+
 def load_right_answers():
     with open("right_answers.txt", "a+") as right_answers_list_file:
         data = right_answers_list_file.read()
         if data:
             right_answers.update(json.loads(data))
+
+def load_right_answers_caps():
+    with open("right_answers_caps.txt", "a+") as right_answers_caps_list_file:
+        data = right_answers_caps_list_file.read()
+        if data:
+            right_answers_caps.update(json.loads(data))
+
+def load_almost_right_answers():
+    with open("almost_right_answers.txt", "a+") as almost_right_answers_list_file:
+        data = almost_right_answers_list_file.read()
+        if data:
+            almost_right_answers.update(json.loads(data))
             
+def load_almost_right_answers_caps():
+    with open("almost_right_answers_caps.txt", "a+") as almost_right_answers_caps_list_file:
+        data = almost_right_answers_caps_list_file.read()
+        if data:
+            almost_right_answers_caps.update(json.loads(data))
+
 def load_start():
     with open("start.txt", "a+") as start_list_file:
         data = start_list_file.read()
@@ -146,7 +241,7 @@ def load_start():
 
 @app.get("/")
 async def greetings():
-    return {"message": "❤ Hey, this is my Final Project Spring2023, hope it works ❤"}
+    return {"message": "❤ Hey, this is my Final Project Spring2023, hope you like it ❤"}
 
 
 #list all questions
@@ -193,56 +288,55 @@ async def create_answer(answer: Answer, start_quiz = "start"):
         data = start_list_file.read()
         if data:
             start.update(json.loads(data))
-            
+    
     if start_quiz == "start":
         if start["is_start"] == "no":
             start["is_start"] = "start"
             with open("start.txt", "w+") as start_list_file:
                 start_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
             if len(all_answers) == 1:
-                return "2. question: what animal is this: miau?:"
+                return "2. question: What animal makes miau?"
             if len(all_answers) == 2:
-                return "3. what animal is barking?:"
+                return "3. What animal is barking?"
             if len(all_answers) == 3:
-                return "4. question: guess whats my favorite color?:"
+                return "4. question: Guess my favorite color"
             if len(all_answers) == 4:
-                return "5. question: do you like this app?:"
+                return "5. question: Do you like this app?"
             if len(all_answers) == 5:
                 return "no more questions, please check solution"
-            return "First question is: guess whats my favorite animal? lives in forest is very smart, orange white color:"
+            return "First question is: Guess my favorite animal, it lives in the forest, is very smart and orange-white colored"
 
         if start["is_start"] == "start":
             if len(all_answers) == 0:
-                answer.question = "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+                answer.question = "Guess my favorite animal, it lives in the forest, is very smart and orange-white colored"
                 answer_key = "1"
                 all_answers[answer_key] = answer
                 with open("all_answers.txt", "w+") as all_answers_list_file:
                     all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
                 return answer, "next question is:", all_questions[2]
             if len(all_answers) == 1:
-                answer.question = "what animal is this: miau?:"
+                answer.question = "What animal makes miau?"
                 answer_key = str(len(all_answers) + 1)
                 all_answers[answer_key] = answer
                 with open("all_answers.txt", "w+") as all_answers_list_file:
                     all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
                 return answer,"next question is:", all_questions[3]
             if len(all_answers) == 2:
-                answer.question = "what animal is barking?:"
+                answer.question = "What animal is barking?"
                 answer_key = str(len(all_answers) + 1)
                 all_answers[answer_key] = answer
                 with open("all_answers.txt", "w+") as all_answers_list_file:
                     all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
                 return answer,"next question is:", all_questions[4]    
             if len(all_answers) == 3:
-                answer.question = "guess whats my favorite color?:"
+                answer.question = "Guess my favorite color"
                 answer_key = str(len(all_answers) + 1)
                 all_answers[answer_key] = answer
                 with open("all_answers.txt", "w+") as all_answers_list_file:
                     all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
                 return answer,"next question is:", all_questions[5]
-                # answer.answer_id = question.question_id
             if len(all_answers) == 4:
-                answer.question = "do you like this app?:"
+                answer.question = "Do you like this app?"
                 answer_key = str(len(all_answers) + 1)
                 all_answers[answer_key] = answer
                 with open("all_answers.txt", "w+") as all_answers_list_file:
@@ -250,7 +344,7 @@ async def create_answer(answer: Answer, start_quiz = "start"):
                 return answer, "Quiz is done, please click solution in delete request"
             if len(all_answers) == 5:
                 return {"message": "no more questions"}
-            
+        
         return {"message": "something went wrong"}
     
     return {"message": "start quiz description has to be start to start the quiz"}
@@ -268,6 +362,18 @@ async def solution():
         data = right_answers_list_file.read()
         if data:
             right_answers.update(json.loads(data))
+    with open("right_answers_caps.txt", "r") as right_answers_caps_list_file:
+        data = right_answers_caps_list_file.read()
+        if data:
+            right_answers_caps.update(json.loads(data))
+    with open("almost_right_answers.txt", "r") as almost_right_answers_list_file:
+        data = almost_right_answers_list_file.read()
+        if data:
+            almost_right_answers.update(json.loads(data))
+    with open("almost_right_answers_caps.txt", "r") as almost_right_answers_caps_list_file:
+        data = almost_right_answers_caps_list_file.read()
+        if data:
+            almost_right_answers_caps.update(json.loads(data))
     with open("start.txt", "a+") as start_list_file:
         data = start_list_file.read()
         if data:
@@ -283,7 +389,7 @@ async def solution():
                 start_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
             return {"message": "List was not finished. Try again"}
         
-        if all_answers == right_answers:
+        if all_answers == right_answers or all_answers == right_answers_caps:
             all_answers.clear()
             start["is_start"] = "no"
             with open("all_answers.txt", "w") as all_answers_list_file:
@@ -292,19 +398,28 @@ async def solution():
                 start_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
             return {"message":"You won!"}
         
+        if all_answers == almost_right_answers or almost_right_answers_caps:
+            all_answers.clear()
+            start["is_start"] = "no"
+            with open("all_answers.txt", "w") as all_answers_list_file:
+                all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+            with open("start.txt", "w+") as start_list_file:
+                start_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+            return {"message":"Do you have any suggestions for improvement?"}
+        
         all_answers.clear()
         start["is_start"] = "no"
         with open("all_answers.txt", "w") as all_answers_list_file:
             all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
         with open("start.txt", "w+") as start_list_file:
-                start_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+            start_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
                 
         return {"message": "You loose this time. Try again"}
     
     start["is_start"] = "no"
     with open("start.txt", "w+") as start_list_file:
-                start_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
-                
+        start_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+    
     return {"message": "List is empty. Try again"}
 
 

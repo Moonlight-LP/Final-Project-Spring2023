@@ -1,17 +1,17 @@
 {
     "1": {
-        "question": "guess whats my favorite animal? lives in forest is very smart, orange white color:"
+        "question": "Guess my favorite animal, it lives in the forest, is very smart and orange-white colored"
     },
     "2": {
-        "question": "what animal is this: miau?:"
+        "question": "What animal makes miau?"
     },
     "3": {
-        "question": "what animal is barking?:"
+        "question": "What animal is barking?"
     },
     "4": {
-        "question": "guess whats my favorite color?:"
+        "question": "Guess my favorite color"
     },
     "5": {
-        "question": "do you like this app?:"
+        "question": "Do you like this app?"
     }                
 }

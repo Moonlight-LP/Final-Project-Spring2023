@@ -26,5 +26,6 @@ To start Quiz in Swagger (MongoDB/Local), please:
 Please note:
 - when you reload or close the browser, you are not able to see the last question, so please restart main.py python file manually, too
 - restarting main.py python file will save given answers for next time
+- only use small letters or first letter capitalized for all answers, please dont mix it
 
 ❤ Thank you ❤
