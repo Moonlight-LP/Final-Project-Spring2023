@@ -77,13 +77,13 @@ all_questions[2] = {
 "question" : "What animal makes miau?"
 }
 all_questions[3] = {
-"question" : "what animal is barking?:"
+"question" : "What animal is barking?"
 }
 all_questions[4] = {
-"question" : "guess whats my favorite color?:"
+"question" : "Guess my favorite color"
 }
 all_questions[5] = {
-"question" : "do you like this app?:"
+"question" : "Do you like this app?"
 }
 
 
@@ -350,6 +350,21 @@ async def create_answer(answer: Answer, start_quiz = "start"):
     return {"message": "start quiz description has to be start to start the quiz"}
 
 
+@app.post("/hint")
+async def get_hint(Need_hint_for_question = "please type question number"):
+    if Need_hint_for_question == "1":
+        return "Kind of like a dog with a fluffy tail, very smart, orange-white colored, lives in the forest"
+    if Need_hint_for_question == "2":
+        return "Miau, I am a little tiger, sometimes I try to roar like a Lion but it only comes out meeow"
+    if Need_hint_for_question == "3":
+        return "I like to go out and play get the ball, sometimes I try to howl like a wolf, but usually its a wuff"
+    if Need_hint_for_question == "4":
+        return "Very beautiful color, usually for girls"
+    if Need_hint_for_question == "5":
+        return "Do you like the app? (obviously yes, :))"
+    return "Please type the question number"
+
+
 #Solution, start Test new
 
 @app.delete("/answers/{}")
@@ -396,7 +411,7 @@ async def solution():
                 all_answers_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
             with open("start.txt", "w+") as start_list_file:
                 start_list_file.write(json.dumps(all_answers, default=lambda o: o.__dict__, sort_keys=True, indent=4))
-            return {"message":"You won!"}
+            return {"message":"You won! ♡⸜(ˆᗜˆ˵ )⸝♡"}
         
         if all_answers == almost_right_answers or almost_right_answers_caps:
             all_answers.clear()
