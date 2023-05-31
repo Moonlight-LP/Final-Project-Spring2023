@@ -5,12 +5,12 @@
 #Imports
 
 #import uuid
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI # , HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from pydantic.dataclasses import dataclass
-from typing import Optional, Dict #/, Union
+from typing import Dict #, Optional, Union
 import json
 import uvicorn
 from tkinter import *
