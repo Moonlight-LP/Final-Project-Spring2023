@@ -361,7 +361,7 @@ async def get_hint(Need_hint_for_question = "please type question number"):
     if Need_hint_for_question == "4":
         return "Very beautiful color, usually for girls"
     if Need_hint_for_question == "5":
-        return "Do you like the app? (obviously yes, :))"
+        return "Do you like the app? :)"
     return "Please type the question number"
 
 
