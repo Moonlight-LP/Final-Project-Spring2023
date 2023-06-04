@@ -14,7 +14,7 @@ For Local access, please:
 For Js/Html UI access, please:
 1. open and run main.py
 2. open index.Html
-Please note: Js/Html UI (frontend) will be finished later
+Please note: Js/Html UI (frontend) is not ready yet
 
 To start Quiz in Swagger (MongoDB/Local), please:
 1. go to Post request (answers) and try it out
