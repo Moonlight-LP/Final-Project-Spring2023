@@ -241,7 +241,7 @@ def load_start():
 
 @app.get("/")
 async def greetings():
-    return {"message": "❤ Hey, this is my Final Project Spring2023, hope you like it ❤"}
+    return "❤ Hey, this is my Final Project Spring2023, hope you like it ❤"
 
 
 #list all questions
